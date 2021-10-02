@@ -30,7 +30,7 @@ public class Bullet {
 
     public void paint(Graphics g) {
         if (!live){
-              tankFrame.bullets.remove(this);
+             tankFrame.bullets.remove(this);
         }
         Color color = g.getColor();
         g.setColor(Color.RED);

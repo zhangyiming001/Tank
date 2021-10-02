@@ -8,11 +8,16 @@ package com.designpattern.tank;
  **/
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+
+        char a= 'a';
+        if (a == 66);
+        System.out.println(a);
         TankFrame TankFrame = new TankFrame();
         System.out.println();
         while (true){
             Thread.sleep(50);
             TankFrame.repaint();
         }
+
     }
 }
