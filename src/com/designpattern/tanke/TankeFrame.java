@@ -14,8 +14,12 @@ import java.awt.event.WindowEvent;
  **/
 public class TankeFrame extends Frame {
 
+    //坦克初始位置
     int x = 200, y = 200;
-
+    //坦克方向
+    Dir dir = Dir.UP;
+    //坦克速度
+    final int SPEED = 10;
     public TankeFrame() {
         setSize(800, 800);
         setResizable(false);
@@ -35,7 +39,21 @@ public class TankeFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         g.fillRect(x, y, 50, 50);
-        x += 10;
+
+        switch (dir){
+            case LEFT:
+                x-=SPEED;
+                break;
+            case UP:
+                y-=SPEED;
+                break;
+            case RIGHT:
+                x+=SPEED;
+                break;
+            case DOWN:
+                y+=SPEED;
+                break;
+        }
     }
 
     class MykeyListener extends KeyAdapter {
@@ -64,6 +82,7 @@ public class TankeFrame extends Frame {
                 default:
                     break;
             }
+            setMainTankeDir();
         }
 
         @Override
@@ -86,5 +105,13 @@ public class TankeFrame extends Frame {
                     break;
             }
         }
+
+        private void setMainTankeDir() {
+            if(keyLEFT) dir = Dir.LEFT;
+            if(keyUP) dir = Dir.UP;
+            if(keyRIGHT) dir = Dir.RIGHT;
+            if(keyDOWN) dir = Dir.DOWN;
+        }
+
     }
 }
