@@ -8,6 +8,6 @@ package com.designpattern.tanke;
  **/
 public class T {
     public static void main(String[] args) {
-        System.out.println("");
+        TankeFrame tankeFrame = new TankeFrame();
     }
 }
