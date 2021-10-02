@@ -1,4 +1,4 @@
-package com.designpattern.tanke;
+package com.designpattern.tank;
 
 /**
  * @Author: ZhangYiMing

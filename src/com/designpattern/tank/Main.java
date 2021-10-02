@@ -1,4 +1,4 @@
-package com.designpattern.tanke;
+package com.designpattern.tank;
 
 /**
  * @Author: ZhangYiMing
@@ -8,11 +8,11 @@ package com.designpattern.tanke;
  **/
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        TankeFrame tankeFrame = new TankeFrame();
+        TankFrame TankFrame = new TankFrame();
 
         while (true){
             Thread.sleep(50);
-            tankeFrame.repaint();
+            TankFrame.repaint();
         }
     }
 }

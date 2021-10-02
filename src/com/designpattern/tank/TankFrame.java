@@ -1,4 +1,4 @@
-package com.designpattern.tanke;
+package com.designpattern.tank;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
  * ^
  * @Description:
  **/
-public class TankeFrame extends Frame {
+public class TankFrame extends Frame {
 
     //坦克初始位置
     int x = 200, y = 200;
@@ -20,7 +20,7 @@ public class TankeFrame extends Frame {
     Dir dir = Dir.UP;
     //坦克速度
     final int SPEED = 10;
-    public TankeFrame() {
+    public TankFrame() {
         setSize(800, 800);
         setResizable(false);
         setTitle("坦克大战");
@@ -82,7 +82,7 @@ public class TankeFrame extends Frame {
                 default:
                     break;
             }
-            setMainTankeDir();
+            setMainTankDir();
         }
 
         @Override
@@ -106,7 +106,7 @@ public class TankeFrame extends Frame {
             }
         }
 
-        private void setMainTankeDir() {
+        private void setMainTankDir() {
             if(keyLEFT) dir = Dir.LEFT;
             if(keyUP) dir = Dir.UP;
             if(keyRIGHT) dir = Dir.RIGHT;
