@@ -14,12 +14,8 @@ import java.awt.event.WindowEvent;
  **/
 public class TankFrame extends Frame {
 
-    //坦克初始位置
-    int x = 200, y = 200;
-    //坦克方向
-    Dir dir = Dir.UP;
-    //坦克速度
-    final int SPEED = 10;
+    Tank myTank = new Tank(200, 200, Dir.DOWN);
+
     public TankFrame() {
         setSize(800, 800);
         setResizable(false);
@@ -38,22 +34,8 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x, y, 50, 50);
+        myTank.paint(g);
 
-        switch (dir){
-            case LEFT:
-                x-=SPEED;
-                break;
-            case UP:
-                y-=SPEED;
-                break;
-            case RIGHT:
-                x+=SPEED;
-                break;
-            case DOWN:
-                y+=SPEED;
-                break;
-        }
     }
 
     class MykeyListener extends KeyAdapter {
@@ -66,18 +48,18 @@ public class TankFrame extends Frame {
         @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
-            switch (keyCode){
+            switch (keyCode) {
                 case KeyEvent.VK_LEFT:
-                    keyLEFT =true;
+                    keyLEFT = true;
                     break;
                 case KeyEvent.VK_UP:
-                    keyUP =true;
+                    keyUP = true;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    keyRIGHT =true;
+                    keyRIGHT = true;
                     break;
                 case KeyEvent.VK_DOWN:
-                    keyDOWN =true;
+                    keyDOWN = true;
                     break;
                 default:
                     break;
@@ -88,29 +70,37 @@ public class TankFrame extends Frame {
         @Override
         public void keyReleased(KeyEvent e) {
             int keyCode = e.getKeyCode();
-            switch (keyCode){
+            switch (keyCode) {
                 case KeyEvent.VK_LEFT:
-                    keyLEFT =false;
+                    keyLEFT = false;
                     break;
                 case KeyEvent.VK_UP:
-                    keyUP =false;
+                    keyUP = false;
                     break;
                 case KeyEvent.VK_RIGHT:
-                    keyRIGHT =false;
+                    keyRIGHT = false;
                     break;
                 case KeyEvent.VK_DOWN:
-                    keyDOWN =false;
+                    keyDOWN = false;
                     break;
                 default:
                     break;
             }
+            setMainTankDir();
         }
 
         private void setMainTankDir() {
-            if(keyLEFT) dir = Dir.LEFT;
-            if(keyUP) dir = Dir.UP;
-            if(keyRIGHT) dir = Dir.RIGHT;
-            if(keyDOWN) dir = Dir.DOWN;
+
+            if (!keyLEFT && !keyUP && !keyRIGHT && !keyDOWN) {
+                myTank.setMoving(false);
+            }else{
+                myTank.setMoving(true);
+                if (keyLEFT) myTank.setDir(Dir.LEFT);
+                if (keyUP) myTank.setDir(Dir.UP);
+                if (keyRIGHT) myTank.setDir(Dir.RIGHT);
+                if (keyDOWN) myTank.setDir(Dir.DOWN);
+            }
+
         }
 
     }
