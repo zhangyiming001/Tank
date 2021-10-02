@@ -14,10 +14,10 @@ import java.awt.event.WindowEvent;
  **/
 public class TankeFrame extends Frame {
 
-    int x = 200,y = 200;
+    int x = 200, y = 200;
 
-    public TankeFrame(){
-        setSize(800,800);
+    public TankeFrame() {
+        setSize(800, 800);
         setResizable(false);
         setTitle("坦克大战");
         setVisible(true);
@@ -34,19 +34,57 @@ public class TankeFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        g.fillRect(x,y,50,50);
+        g.fillRect(x, y, 50, 50);
         x += 10;
     }
 
-    class MykeyListener extends KeyAdapter{
+    class MykeyListener extends KeyAdapter {
+
+        boolean keyLEFT = false;
+        boolean keyRIGHT = false;
+        boolean keyUP = false;
+        boolean keyDOWN = false;
+
         @Override
         public void keyPressed(KeyEvent e) {
-
+            int keyCode = e.getKeyCode();
+            switch (keyCode){
+                case KeyEvent.VK_LEFT:
+                    keyLEFT =true;
+                    break;
+                case KeyEvent.VK_UP:
+                    keyUP =true;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    keyRIGHT =true;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    keyDOWN =true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
-
+            int keyCode = e.getKeyCode();
+            switch (keyCode){
+                case KeyEvent.VK_LEFT:
+                    keyLEFT =false;
+                    break;
+                case KeyEvent.VK_UP:
+                    keyUP =false;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    keyRIGHT =false;
+                    break;
+                case KeyEvent.VK_DOWN:
+                    keyDOWN =false;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
