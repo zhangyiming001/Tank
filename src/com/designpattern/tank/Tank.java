@@ -15,17 +15,22 @@ public class Tank {
     private Dir dir;
     //坦克速度
     private static final int SPEED = 10;
-
+    //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
+    private TankFrame tankFrame;
     private boolean moving = false;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     public void paint(Graphics g) {
+        Color color =g.getColor();
+        g.setColor(Color.CYAN);
         g.fillRect(x, y, 50, 50);
+        g.setColor(color);
         move();
     }
 
@@ -64,5 +69,9 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public void fire() {
+       tankFrame.bullets.add(new Bullet(this.x,this.y,this.dir,this.tankFrame));
     }
 }
