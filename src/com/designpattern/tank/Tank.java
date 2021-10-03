@@ -27,7 +27,7 @@ public class Tank {
     //坦克的存活状态--为碰撞检测做准备
     private boolean living = true;
     //分组
-    private Group group = Group.BAD;
+    private Group group;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
