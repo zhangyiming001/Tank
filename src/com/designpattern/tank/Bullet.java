@@ -15,9 +15,9 @@ public class Bullet {
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-    private Group group = Group.BAD;
+    private Group group;
     //子弹初始位置
-    private int x = 200, y = 200;
+    private int x, y;
     //子弹方向
     private Dir dir;
     //是否存活--为碰撞检测做准备
@@ -88,11 +88,15 @@ public class Bullet {
 
         if (this.getGroup() == tank.getGroup()) return;
 
+
         Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
         if (rect1.intersects(rect2)) {
             tank.die();
             this.die();
+            int bulletX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+            int bulletY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+            tankFrame.explodes.add(new Explode(bulletX,bulletY,tankFrame));
         }
     }
 

@@ -12,27 +12,25 @@ import java.util.Objects;
  * @Description:
  **/
 public class ResourceMgr {
-    public static BufferedImage tankL,tankU,tankR,tankD;
     public static BufferedImage bulletL,bulletU,bulletR,bulletD;
     public static BufferedImage[] explodes = new BufferedImage[16];
+    public static BufferedImage goodTankL,goodTankU,goodTankR,goodTankD;
+    public static BufferedImage badTankL,badTankU,badTankR,badTankD;
+
     static {
         try {
             ClassLoader classLoader = ResourceMgr.class.getClassLoader();
-            tankU = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/GoodTank1.png")));
-            tankL = ImageUtil.rotateImage(tankU, -90);
-            tankR = ImageUtil.rotateImage(tankU, 90);
-            tankD = ImageUtil.rotateImage(tankU, 180);
 
-//            goodTankU = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/GoodTank1.png")));
-//
-//            goodTankL = ImageUtil.rotateImage(goodTankU, -90);
-//            goodTankR = ImageUtil.rotateImage(goodTankU, 90);
-//            goodTankD = ImageUtil.rotateImage(goodTankU, 180);
-//
-//            badTankU = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/BadTank1.png")));
-//            badTankL = ImageUtil.rotateImage(badTankU, -90);
-//            badTankR = ImageUtil.rotateImage(badTankU, 90);
-//            badTankD = ImageUtil.rotateImage(badTankU, 180);
+            goodTankU = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/GoodTank1.png")));
+
+            goodTankL = ImageUtil.rotateImage(goodTankU, -90);
+            goodTankR = ImageUtil.rotateImage(goodTankU, 90);
+            goodTankD = ImageUtil.rotateImage(goodTankU, 180);
+
+            badTankU = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/BadTank1.png")));
+            badTankL = ImageUtil.rotateImage(badTankU, -90);
+            badTankR = ImageUtil.rotateImage(badTankU, 90);
+            badTankD = ImageUtil.rotateImage(badTankU, 180);
 
             bulletU = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/bulletU.png")));
             bulletL = ImageUtil.rotateImage(bulletU, -90);

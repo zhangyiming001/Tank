@@ -13,22 +13,23 @@ public class Explode {
     private int x, y;
     TankFrame tankFrame;
     private int stap = 0;
+    public static int WIDTH = ResourceMgr.explodes[0].getWidth();//爆炸的宽
+    public static int HEIGHT = ResourceMgr.explodes[0].getHeight();//爆炸的高
 
     public Explode(int x, int y, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.tankFrame = tankFrame;
 
-        new Audio("audio//explode.wav").play();
-
+        new Thread(() -> new Audio("audio//explode.wav").play()).start();
     }
 
 
-
     public void paint(Graphics g) {
-        g.drawImage(ResourceMgr.explodes[stap++],x,y,null);
-        if (stap>=ResourceMgr.explodes.length){
-            stap = 0;
+        g.drawImage(ResourceMgr.explodes[stap++], x, y, null);
+
+        if (stap >= ResourceMgr.explodes.length) {
+            tankFrame.explodes.remove(this);
         }
     }
 
