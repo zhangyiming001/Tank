@@ -19,9 +19,12 @@ public class Tank {
     private static final int SPEED = 10;
     //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
     private TankFrame tankFrame;
+    //坦克移动
     private boolean moving = false;
+    //坦克的存活状态--为碰撞检测做准备
+    private boolean living = true;
 
-    public Tank(int x, int y, Dir dir,TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -29,18 +32,19 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        switch(dir){
+        if (!living) tankFrame.tanks.remove(this);
+        switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL,x,y,null);
+                g.drawImage(ResourceMgr.tankL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU,x,y,null);
+                g.drawImage(ResourceMgr.tankU, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR,x,y,null);
+                g.drawImage(ResourceMgr.tankR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD,x,y,null);
+                g.drawImage(ResourceMgr.tankD, x, y, null);
                 break;
             default:
                 break;
@@ -49,21 +53,21 @@ public class Tank {
     }
 
     private void move() {
-        if (!moving){
+        if (!moving) {
             return;
         }
-        switch (dir){
+        switch (dir) {
             case LEFT:
-                x-=SPEED;
+                x -= SPEED;
                 break;
             case UP:
-                y-=SPEED;
+                y -= SPEED;
                 break;
             case RIGHT:
-                x+=SPEED;
+                x += SPEED;
                 break;
             case DOWN:
-                y+=SPEED;
+                y += SPEED;
                 break;
         }
     }
@@ -85,10 +89,30 @@ public class Tank {
         this.moving = moving;
     }
 
-    public void fire() {
-        int bulletX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bulletY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+    public int getX() {
+        return x;
+    }
 
-       tankFrame.bullets.add(new Bullet(bulletX,bulletY,this.dir,this.tankFrame));
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void fire() {
+        int bulletX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bulletY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+
+        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.dir, this.tankFrame));
+    }
+
+    public void die() {
+        this.living = false;
     }
 }

@@ -18,8 +18,9 @@ public class Bullet {
     private Dir dir;
     //子弹速度
     private static final int SPEED = 20;
-    //是否存活
-    private boolean live = true;
+    //是否存活--为碰撞检测做准备
+    private boolean living = true;
+
     TankFrame tankFrame;
 
     public Bullet(int x, int y, Dir dir,TankFrame tankFrame) {
@@ -30,7 +31,7 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        if (!live){
+        if (!living){
              tankFrame.bullets.remove(this);
         }
         switch(dir){
@@ -68,9 +69,19 @@ public class Bullet {
                 break;
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_HEIGHT || y > TankFrame.GAME_WIDTH){
-            live = false;
+            living = false;
         }
+    }
+    public void collidwith(Tank tank){
+        Rectangle rect1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+        Rectangle rect2 = new Rectangle(tank.getX(),tank.getX(),Tank.WIDTH,Tank.HEIGHT);
+        if (rect1.intersects(rect2)){
+            tank.die();
+            this.die();
+        }
+    }
 
-
+    private void die() {
+        this.living = false;
     }
 }
