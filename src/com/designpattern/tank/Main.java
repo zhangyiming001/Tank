@@ -11,7 +11,7 @@ public class Main {
 
         TankFrame tankFrame = new TankFrame();
         for (int i = 0; i < 5; i++) {
-            tankFrame.tanks.add(new Tank(50+i*30,200,Dir.DOWN,tankFrame));
+            tankFrame.tanks.add(new Tank(50+i*30,200,Dir.DOWN,Group.BAD,tankFrame));
         }
         while (true){
             Thread.sleep(50);

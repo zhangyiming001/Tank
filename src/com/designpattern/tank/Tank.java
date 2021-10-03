@@ -1,6 +1,7 @@
 package com.designpattern.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @Author: ZhangYiMing
@@ -9,25 +10,30 @@ import java.awt.*;
  * @Description:
  **/
 public class Tank {
+    //坦克速度
+    private static final int SPEED = 10;
     //坦克初始位置
     private int x, y;
     public static final int WIDTH = ResourceMgr.tankD.getWidth();
     public static final int HEIGHT = ResourceMgr.tankD.getHeight();
+    //生成随机数--坦克方向
+    private Random random = new Random();
     //坦克方向
     private Dir dir;
-    //坦克速度
-    private static final int SPEED = 10;
     //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
     private TankFrame tankFrame;
     //坦克移动
-    private boolean moving = false;
+    private boolean moving = true;
     //坦克的存活状态--为碰撞检测做准备
     private boolean living = true;
+    //分组
+    private Group group = Group.BAD;
 
-    public Tank(int x, int y, Dir dir, TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -70,6 +76,10 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+        if (random.nextInt(10) > 5) this.fire();
+    }
+
+    private void randomDir() {
     }
 
 
@@ -105,11 +115,19 @@ public class Tank {
         this.y = y;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public void fire() {
         int bulletX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bulletY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
 
-        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.dir, this.tankFrame));
+        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.dir, this.group, this.tankFrame));
     }
 
     public void die() {
