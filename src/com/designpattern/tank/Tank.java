@@ -16,6 +16,8 @@ public class Tank {
     private int x, y;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
+    //实现矩形的类
+    Rectangle rectangle = new Rectangle();
     //生成随机数--坦克方向
     private Random random = new Random();
     //坦克方向
@@ -35,6 +37,12 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        //每次初始化的时候都为 rectangle 赋一次值
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -82,7 +90,9 @@ public class Tank {
         }
         //边界检测
         boundsCheck();
-
+        //更新 rectangle 的值
+        rectangle.x = this.x;
+        rectangle.y = this.y;
     }
 
     private void boundsCheck() {

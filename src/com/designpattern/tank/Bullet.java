@@ -14,7 +14,8 @@ public class Bullet {
     //子弹的宽高
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
-
+    //实现矩形的类
+    Rectangle rectangle = new Rectangle();
     private Group group;
     //子弹初始位置
     private int x, y;
@@ -31,6 +32,12 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        //每次初始化的时候都为 rectangle 赋一次值
+        rectangle.x = this.x;
+        rectangle.y = this.y;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGHT;
     }
 
     public Group getGroup() {
@@ -79,6 +86,9 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
+        //更新 rectangle 的值
+        rectangle.x = this.x;
+        rectangle.y = this.y;
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
             living = false;
         }
@@ -88,10 +98,11 @@ public class Bullet {
 
         if (this.getGroup() == tank.getGroup()) return;
 
+        //TODO 潜在的BUG 每次碰撞检测都要new两个对象 这就相当于2mn 的复杂度  通过new java自带的rectangle 来记录位置代替new对象
+//        Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+//        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 
-        Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-        if (rect1.intersects(rect2)) {
+        if (rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
             int bulletX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
