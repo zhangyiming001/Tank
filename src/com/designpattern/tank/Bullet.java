@@ -10,7 +10,8 @@ import java.awt.*;
  **/
 public class Bullet {
     //子弹的宽高
-    private static final int WIDTH = 15, HEIGHT = 15;
+    public static final int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     //子弹初始位置
     private int x = 200, y = 200;
     //子弹方向
@@ -32,10 +33,22 @@ public class Bullet {
         if (!live){
              tankFrame.bullets.remove(this);
         }
-        Color color = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(x, y, WIDTH, HEIGHT);
-        g.setColor(color);
+        switch(dir){
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                break;
+            default:
+                break;
+        }
         move();
     }
 

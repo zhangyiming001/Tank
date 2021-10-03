@@ -10,7 +10,9 @@ import java.awt.*;
  **/
 public class Tank {
     //坦克初始位置
-    private int x = 200, y = 200;
+    private int x, y;
+    public static final int WIDTH = ResourceMgr.tankD.getWidth();
+    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
     //坦克方向
     private Dir dir;
     //坦克速度
@@ -27,10 +29,22 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color color =g.getColor();
-        g.setColor(Color.CYAN);
-        g.fillRect(x, y, 50, 50);
-        g.setColor(color);
+        switch(dir){
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR,x,y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD,x,y,null);
+                break;
+            default:
+                break;
+        }
         move();
     }
 
@@ -72,6 +86,9 @@ public class Tank {
     }
 
     public void fire() {
-       tankFrame.bullets.add(new Bullet(this.x,this.y,this.dir,this.tankFrame));
+        int bulletX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bulletY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+
+       tankFrame.bullets.add(new Bullet(bulletX,bulletY,this.dir,this.tankFrame));
     }
 }

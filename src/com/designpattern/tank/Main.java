@@ -9,14 +9,13 @@ package com.designpattern.tank;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        char a= 'a';
-        if (a == 66);
-        System.out.println(a);
-        TankFrame TankFrame = new TankFrame();
-        System.out.println();
+        TankFrame tankFrame = new TankFrame();
+        for (int i = 0; i < 5; i++) {
+            tankFrame.tanks.add(new Tank(50+i*30,200,Dir.DOWN,tankFrame));
+        }
         while (true){
             Thread.sleep(50);
-            TankFrame.repaint();
+            tankFrame.repaint();
         }
 
     }
