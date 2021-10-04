@@ -1,6 +1,7 @@
 package com.designpattern.tank;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -13,7 +14,7 @@ public class Tank {
     //坦克速度
     private static final int SPEED = 10;
     //坦克初始位置
-    private int x, y;
+    public int x, y;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
     //实现矩形的类
@@ -21,17 +22,20 @@ public class Tank {
     //生成随机数--坦克方向
     private Random random = new Random();
     //坦克方向
-    private Dir dir;
+    Dir dir;
     //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
-    private TankFrame tankFrame;
+    TankFrame tankFrame;
     //坦克移动
     private boolean moving = true;
     //坦克的存活状态--为碰撞检测做准备
     private boolean living = true;
     //分组
-    private Group group;
-
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    Group group;
+    //策略模式 -- 设计模式
+//    FireStrategy fireStrategy = new DefaultFireStrategy(); //默认策略模式
+//    FireStrategy fireStrategy = new FourDirFireStrategy(); //四个方向的的策略模式
+      FireStrategy fireStrategy; //动态创建
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) throws Exception {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -43,6 +47,19 @@ public class Tank {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
+
+        if (group == Group.GOOD) {
+//            fireStrategy = new FourDirFireStrategy();
+            String goodFireStrategy = (String) PropertyMgr.get("goodFireStrategy");
+            fireStrategy = (FireStrategy) Class.forName(goodFireStrategy).getDeclaredConstructor().newInstance();
+
+        }else{
+//            fireStrategy = new DefaultFireStrategy();
+            String badFireStrategy = (String) PropertyMgr.get("badFireStrategy");
+            fireStrategy = (FireStrategy) Class.forName(badFireStrategy).getDeclaredConstructor().newInstance();
+
+        }
+
     }
 
     public void paint(Graphics g) {
@@ -107,6 +124,16 @@ public class Tank {
     }
 
 
+    public void fire() {
+        fireStrategy.fire(this);
+    }
+
+    public void die() {
+        this.living = false;
+    }
+
+
+    /***********************************Get/Set****************************************************/
     public Dir getDir() {
         return dir;
     }
@@ -145,16 +172,5 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
-    }
-
-    public void fire() {
-        int bulletX = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bulletY = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-
-        tankFrame.bullets.add(new Bullet(bulletX, bulletY, this.dir, this.group, this.tankFrame));
-    }
-
-    public void die() {
-        this.living = false;
     }
 }

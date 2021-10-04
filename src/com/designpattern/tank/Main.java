@@ -9,8 +9,7 @@ import java.util.Objects;
  * @Description:
  **/
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-
+    public static void main(String[] args) throws Exception {
         TankFrame tankFrame = new TankFrame();
         int initTanleCount = Integer.parseInt((String) Objects.requireNonNull(PropertyMgr.get("initTankCount")));
 

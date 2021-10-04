@@ -22,7 +22,7 @@ public class TankFrame extends Frame {
     List<Explode> explodes = new ArrayList<>();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
-    public TankFrame() {
+    public TankFrame() throws Exception {
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("坦克大战");

@@ -5,5 +5,5 @@ bulletSpeed=5
 gameWidth=1080
 gameHeight=720
 #fireStrategy
-goodFireStrategy=com.tank.test.impl.FourFireStrategy
-badFireStrategy=com.tank.test.impl.DefaultFireStrategy
+goodFireStrategy=com.designpattern.tank.FourDirFireStrategy
+badFireStrategy=com.designpattern.tank.DefaultFireStrategy
