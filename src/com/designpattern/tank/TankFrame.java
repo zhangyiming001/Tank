@@ -16,10 +16,10 @@ import java.util.List;
  **/
 public class TankFrame extends Frame {
 
-    Tank myTank = new Tank(200, 200, Dir.DOWN, Group.GOOD, this);
-    List<Bullet> bullets = new ArrayList();
-    List<Tank> tanks = new ArrayList<>();
-    List<Explode> explodes = new ArrayList<>();
+    BaseTank myBaseTank = new BaseTank(200, 200, Dir.DOWN, Group.GOOD, this);
+    List<BaseBullet> baseBullets = new ArrayList();
+    List<BaseTank> baseTanks = new ArrayList<>();
+    List<BaseExplode> baseExplodes = new ArrayList<>();
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() throws Exception {
@@ -64,24 +64,24 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.white);
-        g.drawString("子弹数量："+bullets.size(),10,60);
-        g.drawString("敌人数量："+tanks.size(),10,80);
-        g.drawString("爆炸数量："+explodes.size(),10,100);
+        g.drawString("子弹数量："+ baseBullets.size(),10,60);
+        g.drawString("敌人数量："+ baseTanks.size(),10,80);
+        g.drawString("爆炸数量："+ baseExplodes.size(),10,100);
         g.setColor(c);
-        myTank.paint(g);
-        for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).paint(g);
+        myBaseTank.paint(g);
+        for (int i = 0; i < baseBullets.size(); i++) {
+            baseBullets.get(i).paint(g);
         }
-        for (int i = 0; i < tanks.size(); i++) {
-            tanks.get(i).paint(g);
+        for (int i = 0; i < baseTanks.size(); i++) {
+            baseTanks.get(i).paint(g);
         }
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
+        for (int i = 0; i < baseExplodes.size(); i++) {
+            baseExplodes.get(i).paint(g);
         }
         //碰撞检测
-        for (int i = 0; i < bullets.size(); i++) {
-            for (int j = 0; j < tanks.size(); j++) {
-                bullets.get(i).collidwith(tanks.get(j));
+        for (int i = 0; i < baseBullets.size(); i++) {
+            for (int j = 0; j < baseTanks.size(); j++) {
+                baseBullets.get(i).collidwith(baseTanks.get(j));
             }
         }
 
@@ -111,7 +111,7 @@ public class TankFrame extends Frame {
                     keyDOWN = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    myTank.fire();
+                    myBaseTank.fire();
                     break;
                 default:
                     break;
@@ -144,13 +144,13 @@ public class TankFrame extends Frame {
         private void setMainTankDir() {
 
             if (!keyLEFT && !keyUP && !keyRIGHT && !keyDOWN) {
-                myTank.setMoving(false);
+                myBaseTank.setMoving(false);
             } else {
-                myTank.setMoving(true);
-                if (keyLEFT) myTank.setDir(Dir.LEFT);
-                if (keyUP) myTank.setDir(Dir.UP);
-                if (keyRIGHT) myTank.setDir(Dir.RIGHT);
-                if (keyDOWN) myTank.setDir(Dir.DOWN);
+                myBaseTank.setMoving(true);
+                if (keyLEFT) myBaseTank.setDir(Dir.LEFT);
+                if (keyUP) myBaseTank.setDir(Dir.UP);
+                if (keyRIGHT) myBaseTank.setDir(Dir.RIGHT);
+                if (keyDOWN) myBaseTank.setDir(Dir.DOWN);
             }
 
         }

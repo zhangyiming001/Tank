@@ -1,7 +1,6 @@
 package com.designpattern.tank;
 
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Random;
  * ^
  * @Description:
  **/
-public class Tank {
+public class BaseTank {
     //坦克速度
     private static final int SPEED = 10;
     //坦克初始位置
@@ -35,7 +34,7 @@ public class Tank {
 //    FireStrategy fireStrategy = new DefaultFireStrategy(); //默认策略模式
 //    FireStrategy fireStrategy = new FourDirFireStrategy(); //四个方向的的策略模式
       FireStrategy fireStrategy; //动态创建
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tankFrame) throws Exception {
+    public BaseTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) throws Exception {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -63,7 +62,7 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        if (!living) tankFrame.tanks.remove(this);
+        if (!living) tankFrame.baseTanks.remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
@@ -115,8 +114,8 @@ public class Tank {
     private void boundsCheck() {
         if (this.x < 0) x = 0;
         if (this.y < 30) y = 30;
-        if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH) x = TankFrame.GAME_WIDTH - Tank.WIDTH;
-        if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT) y = TankFrame.GAME_HEIGHT - Tank.HEIGHT;
+        if (this.x > TankFrame.GAME_WIDTH - com.designpattern.tank.BaseTank.WIDTH) x = TankFrame.GAME_WIDTH - com.designpattern.tank.BaseTank.WIDTH;
+        if (this.y > TankFrame.GAME_HEIGHT - com.designpattern.tank.BaseTank.HEIGHT) y = TankFrame.GAME_HEIGHT - com.designpattern.tank.BaseTank.HEIGHT;
     }
 
     private void randomDir() {

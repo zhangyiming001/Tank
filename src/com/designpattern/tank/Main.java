@@ -14,7 +14,7 @@ public class Main {
         int initTanleCount = Integer.parseInt((String) Objects.requireNonNull(PropertyMgr.get("initTankCount")));
 
         for (int i = 0; i < initTanleCount; i++) {
-            tankFrame.tanks.add(new Tank(50+i*30,200,Dir.DOWN,Group.BAD,tankFrame));
+            tankFrame.baseTanks.add(new BaseTank(50+i*30,200,Dir.DOWN,Group.BAD,tankFrame));
         }
         while (true){
             Thread.sleep(50);

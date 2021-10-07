@@ -7,5 +7,5 @@ package com.designpattern.tank;
  * @Description: 策略模式
  **/
 public interface FireStrategy {
-    void fire(Tank tank);
+    void fire(BaseTank baseTank);
 }

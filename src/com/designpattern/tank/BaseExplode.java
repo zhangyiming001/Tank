@@ -8,7 +8,7 @@ import java.awt.*;
  * ^
  * @Description:
  **/
-public class Explode {
+public class BaseExplode {
     //子弹初始位置
     private int x, y;
     TankFrame tankFrame;
@@ -16,7 +16,7 @@ public class Explode {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();//爆炸的宽
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();//爆炸的高
 
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public BaseExplode(int x, int y, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.tankFrame = tankFrame;
@@ -29,7 +29,7 @@ public class Explode {
         g.drawImage(ResourceMgr.explodes[stap++], x, y, null);
 
         if (stap >= ResourceMgr.explodes.length) {
-            tankFrame.explodes.remove(this);
+            tankFrame.baseExplodes.remove(this);
         }
     }
 

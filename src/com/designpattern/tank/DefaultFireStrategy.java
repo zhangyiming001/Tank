@@ -8,11 +8,11 @@ package com.designpattern.tank;
  **/
 public class DefaultFireStrategy implements FireStrategy{
     @Override
-    public void fire(Tank tank) {
-        int bulletX = tank.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bulletY = tank.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+    public void fire(BaseTank baseTank) {
+        int bulletX = baseTank.x + com.designpattern.tank.BaseTank.WIDTH / 2 - BaseBullet.WIDTH / 2;
+        int bulletY = baseTank.y + com.designpattern.tank.BaseTank.HEIGHT / 2 - BaseBullet.HEIGHT / 2;
 
-        new Bullet(bulletX, bulletY, tank.dir, tank.group, tank.tankFrame);
+        new BaseBullet(bulletX, bulletY, baseTank.dir, baseTank.group, baseTank.tankFrame);
 
     }
 }

@@ -8,12 +8,12 @@ package com.designpattern.tank;
  **/
 public class FourDirFireStrategy implements FireStrategy{
     @Override
-    public void fire(Tank tank) {
-        int bulletX = tank.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int bulletY = tank.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+    public void fire(BaseTank baseTank) {
+        int bulletX = baseTank.x + com.designpattern.tank.BaseTank.WIDTH / 2 - BaseBullet.WIDTH / 2;
+        int bulletY = baseTank.y + com.designpattern.tank.BaseTank.HEIGHT / 2 - BaseBullet.HEIGHT / 2;
         Dir[] dirs = Dir.values();
         for (Dir dir: dirs) {
-            new Bullet(bulletX, bulletY, dir, tank.group, tank.tankFrame);
+            new BaseBullet(bulletX, bulletY, dir, baseTank.group, baseTank.tankFrame);
 
         }
 

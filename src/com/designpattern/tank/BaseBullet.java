@@ -8,7 +8,7 @@ import java.awt.*;
  * ^
  * @Description:
  **/
-public class Bullet {
+public class BaseBullet {
     //子弹速度
     private static final int SPEED = 20;
     //子弹的宽高
@@ -26,7 +26,7 @@ public class Bullet {
 
     TankFrame tankFrame;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public BaseBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -39,7 +39,7 @@ public class Bullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tankFrame.bullets.add(this);
+        tankFrame.baseBullets.add(this);
     }
 
     public Group getGroup() {
@@ -52,7 +52,7 @@ public class Bullet {
 
     public void paint(Graphics g) {
         if (!living) {
-            tankFrame.bullets.remove(this);
+            tankFrame.baseBullets.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -96,20 +96,20 @@ public class Bullet {
         }
     }
 
-    public void collidwith(Tank tank) {
+    public void collidwith(BaseTank baseTank) {
 
-        if (this.getGroup() == tank.getGroup()) return;
+        if (this.getGroup() == baseTank.getGroup()) return;
 
         //TODO 潜在的BUG 每次碰撞检测都要new两个对象 这就相当于2mn 的复杂度  通过new java自带的rectangle 来记录位置代替new对象
 //        Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-//        Rectangle rect2 = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+//        Rectangle rect2 = new Rectangle(baseTank.getX(), baseTank.getY(), BaseTank.WIDTH, BaseTank.HEIGHT);
 
-        if (rectangle.intersects(tank.rectangle)) {
-            tank.die();
+        if (rectangle.intersects(baseTank.rectangle)) {
+            baseTank.die();
             this.die();
-            int bulletX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int bulletY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
-            tankFrame.explodes.add(new Explode(bulletX,bulletY,tankFrame));
+            int bulletX = baseTank.getX() + com.designpattern.tank.BaseTank.WIDTH/2 - BaseExplode.WIDTH/2;
+            int bulletY = baseTank.getY() + com.designpattern.tank.BaseTank.HEIGHT/2 - BaseExplode.HEIGHT/2;
+            tankFrame.baseExplodes.add(new BaseExplode(bulletX,bulletY,tankFrame));
         }
     }
 
