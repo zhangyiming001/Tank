@@ -1,8 +1,6 @@
-package com.designpattern.tank;
+package com.designpattern.tank.abstractfactory;
 
-import com.designpattern.tank.abstractfactory.Bullet;
-import com.designpattern.tank.abstractfactory.Explode;
-import com.designpattern.tank.abstractfactory.Tank;
+import com.designpattern.tank.*;
 
 import java.awt.*;
 
@@ -12,7 +10,7 @@ import java.awt.*;
  * ^
  * @Description:
  **/
-public class BaseBullet extends Bullet {
+public class RectBullet extends Bullet {
     //子弹速度
     private static final int SPEED = 20;
     //子弹的宽高
@@ -30,7 +28,7 @@ public class BaseBullet extends Bullet {
 
     TankFrame tankFrame;
 
-    public BaseBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -58,22 +56,10 @@ public class BaseBullet extends Bullet {
         if (!living) {
             tankFrame.baseBullets.remove(this);
         }
-        switch (dir) {
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
-                break;
-            default:
-                break;
-        }
+        Color color = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x,y,20,20);
+        g.setColor(color);
         move();
     }
 
@@ -111,8 +97,8 @@ public class BaseBullet extends Bullet {
         if (rectangle.intersects(tank.rectangle)) {
             tank.die();
             this.die();
-            int bulletX = tank.getX() + com.designpattern.tank.BaseTank.WIDTH/2 - BaseExplode.WIDTH/2;
-            int bulletY = tank.getY() + com.designpattern.tank.BaseTank.HEIGHT/2 - BaseExplode.HEIGHT/2;
+            int bulletX = tank.getX() + BaseTank.WIDTH/2 - BaseExplode.WIDTH/2;
+            int bulletY = tank.getY() + BaseTank.HEIGHT/2 - BaseExplode.HEIGHT/2;
             tankFrame.baseExplodes.add(tankFrame.gameFactory.createExplode(bulletX,bulletY,tankFrame));
         }
     }

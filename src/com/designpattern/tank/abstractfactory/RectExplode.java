@@ -1,7 +1,9 @@
-package com.designpattern.tank;
+package com.designpattern.tank.abstractfactory;
 
 
-import com.designpattern.tank.abstractfactory.Explode;
+import com.designpattern.tank.Audio;
+import com.designpattern.tank.ResourceMgr;
+import com.designpattern.tank.TankFrame;
 
 import java.awt.*;
 
@@ -11,15 +13,15 @@ import java.awt.*;
  * ^
  * @Description:
  **/
-public class BaseExplode extends Explode {
+public class RectExplode extends Explode {
     //子弹初始位置
     private int x, y;
     TankFrame tankFrame;
-    private int stap = 0;
+    private int step = 0;
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();//爆炸的宽
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();//爆炸的高
 
-    public BaseExplode(int x, int y, TankFrame tankFrame) {
+    public RectExplode( int x, int y, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.tankFrame = tankFrame;
@@ -29,11 +31,14 @@ public class BaseExplode extends Explode {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(ResourceMgr.explodes[stap++], x, y, null);
-
-        if (stap >= ResourceMgr.explodes.length) {
+        Color color = g.getColor();
+        g.setColor(Color.BLUE);
+        g.fillRect(x,y,10*step,10*step);
+        step++;
+        if (step>=5)
             tankFrame.baseExplodes.remove(this);
-        }
+
+        g.setColor(color);
     }
 
 }

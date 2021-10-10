@@ -1,5 +1,7 @@
 package com.designpattern.tank;
 
+import com.designpattern.tank.abstractfactory.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,10 +19,11 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     BaseTank myBaseTank = new BaseTank(200, 200, Dir.DOWN, Group.GOOD, this);
-    List<BaseBullet> baseBullets = new ArrayList();
-    List<BaseTank> baseTanks = new ArrayList<>();
-    List<BaseExplode> baseExplodes = new ArrayList<>();
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    public List<Bullet> baseBullets = new ArrayList();
+    public List<Tank> baseTanks = new ArrayList<>();
+    public List<Explode> baseExplodes = new ArrayList<>();
+    public GameFactory gameFactory = new RectFactory();
+    public static final int GAME_WIDTH = 1080, GAME_HEIGHT = 960;
 
     public TankFrame() throws Exception {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -81,7 +84,7 @@ public class TankFrame extends Frame {
         //碰撞检测
         for (int i = 0; i < baseBullets.size(); i++) {
             for (int j = 0; j < baseTanks.size(); j++) {
-                baseBullets.get(i).collidwith(baseTanks.get(j));
+                baseBullets.get(i).collideWith(baseTanks.get(j));
             }
         }
 
