@@ -1,9 +1,0 @@
-#tanke count at initialization
-initTankCount=10
-tankSpeed=5
-bulletSpeed=5
-gameWidth=1080
-gameHeight=720
-#fireStrategy
-goodFireStrategy=com.designpattern.tank.FourDirFireStrategy
-badFireStrategy=com.designpattern.tank.DefaultFireStrategy
