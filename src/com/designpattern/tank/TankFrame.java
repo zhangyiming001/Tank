@@ -16,10 +16,8 @@ import java.util.List;
  **/
 public class TankFrame extends Frame {
 
-    BaseTank myBaseTank = new BaseTank(200, 200, Dir.DOWN, Group.GOOD, this);
-    List<BaseBullet> baseBullets = new ArrayList();
-    List<BaseTank> baseTanks = new ArrayList<>();
-    List<BaseExplode> baseExplodes = new ArrayList<>();
+    GameModel gm = new GameModel();
+
     static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() throws Exception {
@@ -62,28 +60,8 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.white);
-        g.drawString("子弹数量："+ baseBullets.size(),10,60);
-        g.drawString("敌人数量："+ baseTanks.size(),10,80);
-        g.drawString("爆炸数量："+ baseExplodes.size(),10,100);
-        g.setColor(c);
-        myBaseTank.paint(g);
-        for (int i = 0; i < baseBullets.size(); i++) {
-            baseBullets.get(i).paint(g);
-        }
-        for (int i = 0; i < baseTanks.size(); i++) {
-            baseTanks.get(i).paint(g);
-        }
-        for (int i = 0; i < baseExplodes.size(); i++) {
-            baseExplodes.get(i).paint(g);
-        }
-        //碰撞检测
-        for (int i = 0; i < baseBullets.size(); i++) {
-            for (int j = 0; j < baseTanks.size(); j++) {
-                baseBullets.get(i).collidwith(baseTanks.get(j));
-            }
-        }
+        gm.paint(g);
+
 
     }
 
@@ -111,7 +89,7 @@ public class TankFrame extends Frame {
                     keyDOWN = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    myBaseTank.fire();
+                    gm.getMainTank().fire();
                     break;
                 default:
                     break;
@@ -142,7 +120,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-
+            BaseTank myBaseTank = gm.getMainTank();
             if (!keyLEFT && !keyUP && !keyRIGHT && !keyDOWN) {
                 myBaseTank.setMoving(false);
             } else {

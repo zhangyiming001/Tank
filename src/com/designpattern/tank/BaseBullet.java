@@ -24,14 +24,14 @@ public class BaseBullet {
     //是否存活--为碰撞检测做准备
     private boolean living = true;
 
-    TankFrame tankFrame;
+    GameModel gameModel;
 
-    public BaseBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public BaseBullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         //每次初始化的时候都为 rectangle 赋一次值
         rectangle.x = this.x;
@@ -39,7 +39,7 @@ public class BaseBullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        tankFrame.baseBullets.add(this);
+        gameModel.baseBullets.add(this);
     }
 
     public Group getGroup() {
@@ -52,7 +52,7 @@ public class BaseBullet {
 
     public void paint(Graphics g) {
         if (!living) {
-            tankFrame.baseBullets.remove(this);
+            gameModel.baseBullets.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -109,7 +109,7 @@ public class BaseBullet {
             this.die();
             int bulletX = baseTank.getX() + com.designpattern.tank.BaseTank.WIDTH/2 - BaseExplode.WIDTH/2;
             int bulletY = baseTank.getY() + com.designpattern.tank.BaseTank.HEIGHT/2 - BaseExplode.HEIGHT/2;
-            tankFrame.baseExplodes.add(new BaseExplode(bulletX,bulletY,tankFrame));
+            gameModel.baseExplodes.add(new BaseExplode(bulletX,bulletY,gameModel));
         }
     }
 

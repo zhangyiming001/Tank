@@ -1,4 +1,3 @@
-
 package com.designpattern.tank;
 
 import java.io.IOException;

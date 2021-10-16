@@ -22,8 +22,8 @@ public class BaseTank {
     private Random random = new Random();
     //坦克方向
     Dir dir;
-    //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
-    TankFrame tankFrame;
+//    //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
+//    TankFrame tankFrame;
     //坦克移动
     private boolean moving = true;
     //坦克的存活状态--为碰撞检测做准备
@@ -34,12 +34,13 @@ public class BaseTank {
 //    FireStrategy fireStrategy = new DefaultFireStrategy(); //默认策略模式
 //    FireStrategy fireStrategy = new FourDirFireStrategy(); //四个方向的的策略模式
       FireStrategy fireStrategy; //动态创建
-    public BaseTank(int x, int y, Dir dir, Group group, TankFrame tankFrame) throws Exception {
+    GameModel gameModel;
+    public BaseTank(int x, int y, Dir dir, Group group, GameModel gameModel) throws Exception {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         //每次初始化的时候都为 rectangle 赋一次值
         rectangle.x = this.x;
@@ -62,7 +63,7 @@ public class BaseTank {
     }
 
     public void paint(Graphics g) {
-        if (!living) tankFrame.baseTanks.remove(this);
+        if (!living) gameModel.baseTanks.remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
