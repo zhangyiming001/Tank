@@ -8,7 +8,7 @@ import java.awt.*;
  * ^
  * @Description:
  **/
-public class BaseBullet {
+public class BaseBullet extends GameObject{
     //子弹速度
     private static final int SPEED = 20;
     //子弹的宽高
@@ -39,7 +39,7 @@ public class BaseBullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.baseBullets.add(this);
+        gameModel.add(this);
     }
 
     public Group getGroup() {
@@ -49,10 +49,10 @@ public class BaseBullet {
     public void setGroup(Group group) {
         this.group = group;
     }
-
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            gameModel.baseBullets.remove(this);
+            gameModel.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -109,7 +109,7 @@ public class BaseBullet {
             this.die();
             int bulletX = baseTank.getX() + com.designpattern.tank.BaseTank.WIDTH/2 - BaseExplode.WIDTH/2;
             int bulletY = baseTank.getY() + com.designpattern.tank.BaseTank.HEIGHT/2 - BaseExplode.HEIGHT/2;
-            gameModel.baseExplodes.add(new BaseExplode(bulletX,bulletY,gameModel));
+            gameModel.add(new BaseExplode(bulletX,bulletY,gameModel));
         }
     }
 

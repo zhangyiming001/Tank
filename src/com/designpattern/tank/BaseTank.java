@@ -1,5 +1,7 @@
 package com.designpattern.tank;
 
+import com.designpattern.tank.strategy.FireStrategy;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -9,7 +11,7 @@ import java.util.Random;
  * ^
  * @Description:
  **/
-public class BaseTank {
+public class BaseTank extends GameObject{
     //坦克速度
     private static final int SPEED = 10;
     //坦克初始位置
@@ -21,7 +23,7 @@ public class BaseTank {
     //生成随机数--坦克方向
     private Random random = new Random();
     //坦克方向
-    Dir dir;
+    public Dir dir;
 //    //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
 //    TankFrame tankFrame;
     //坦克移动
@@ -29,12 +31,13 @@ public class BaseTank {
     //坦克的存活状态--为碰撞检测做准备
     private boolean living = true;
     //分组
-    Group group;
+    public Group group;
     //策略模式 -- 设计模式
 //    FireStrategy fireStrategy = new DefaultFireStrategy(); //默认策略模式
 //    FireStrategy fireStrategy = new FourDirFireStrategy(); //四个方向的的策略模式
       FireStrategy fireStrategy; //动态创建
-    GameModel gameModel;
+    public GameModel gameModel;
+
     public BaseTank(int x, int y, Dir dir, Group group, GameModel gameModel) throws Exception {
         this.x = x;
         this.y = y;
@@ -61,9 +64,9 @@ public class BaseTank {
         }
 
     }
-
+    @Override
     public void paint(Graphics g) {
-        if (!living) gameModel.baseTanks.remove(this);
+        if (!living) gameModel.remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
@@ -132,8 +135,13 @@ public class BaseTank {
         this.living = false;
     }
 
-
+    public void Stop(){
+        this.moving = false;
+    }
     /***********************************Get/Set****************************************************/
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
     public Dir getDir() {
         return dir;
     }

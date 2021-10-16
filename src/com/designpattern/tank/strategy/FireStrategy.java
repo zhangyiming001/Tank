@@ -1,4 +1,6 @@
-package com.designpattern.tank;
+package com.designpattern.tank.strategy;
+
+import com.designpattern.tank.BaseTank;
 
 /**
  * @Author: ZhangYiMing

@@ -1,4 +1,8 @@
-package com.designpattern.tank;
+package com.designpattern.tank.strategy;
+
+import com.designpattern.tank.BaseBullet;
+import com.designpattern.tank.BaseTank;
+import com.designpattern.tank.Dir;
 
 /**
  * @Author: ZhangYiMing
@@ -6,7 +10,7 @@ package com.designpattern.tank;
  * ^
  * @Description:默认的策略
  **/
-public class FourDirFireStrategy implements FireStrategy{
+public class FourDirFireStrategy implements FireStrategy {
     @Override
     public void fire(BaseTank baseTank) {
         int bulletX = baseTank.x + com.designpattern.tank.BaseTank.WIDTH / 2 - BaseBullet.WIDTH / 2;

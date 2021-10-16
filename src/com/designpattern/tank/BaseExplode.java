@@ -8,7 +8,7 @@ import java.awt.*;
  * ^
  * @Description:
  **/
-public class BaseExplode {
+public class BaseExplode extends GameObject {
     //子弹初始位置
     private int x, y;
     GameModel gameModel;
@@ -24,12 +24,12 @@ public class BaseExplode {
         new Thread(() -> new Audio("audio//explode.wav").play()).start();
     }
 
-
+    @Override
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[stap++], x, y, null);
 
         if (stap >= ResourceMgr.explodes.length) {
-            gameModel.baseExplodes.remove(this);
+            gameModel.remove(this);
         }
     }
 
