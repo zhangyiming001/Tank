@@ -15,12 +15,12 @@ public class BaseBullet extends GameObject{
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
     //实现矩形的类
-    Rectangle rectangle = new Rectangle();
-    private Group group;
+    public Rectangle rectangle = new Rectangle();
+    private final Group group;
     //子弹初始位置
     private int x, y;
     //子弹方向
-    private Dir dir;
+    private final Dir dir;
     //是否存活--为碰撞检测做准备
     private boolean living = true;
 
@@ -44,10 +44,6 @@ public class BaseBullet extends GameObject{
 
     public Group getGroup() {
         return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
     @Override
     public void paint(Graphics g) {
@@ -75,18 +71,10 @@ public class BaseBullet extends GameObject{
 
     private void move() {
         switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
+            case LEFT -> x -= SPEED;
+            case UP -> y -= SPEED;
+            case RIGHT -> x += SPEED;
+            case DOWN -> y += SPEED;
         }
         //更新 rectangle 的值
         rectangle.x = this.x;
@@ -96,7 +84,7 @@ public class BaseBullet extends GameObject{
         }
     }
 
-    public boolean collidwith(BaseTank baseTank) {
+/**    public boolean collidwith(BaseTank baseTank) {
 
         if (this.getGroup() == baseTank.getGroup()) return false;
 
@@ -114,9 +102,9 @@ public class BaseBullet extends GameObject{
         }
 
         return false;
-    }
+    }*/
 
-    private void die() {
+    public void die() {
         this.living = false;
     }
 }

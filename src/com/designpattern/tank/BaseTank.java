@@ -21,7 +21,7 @@ public class BaseTank extends GameObject {
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
     //实现矩形的类
-    Rectangle rectangle = new Rectangle();
+    public Rectangle rectangle = new Rectangle();
     //生成随机数--坦克方向
     private Random random = new Random();
     //坦克方向
