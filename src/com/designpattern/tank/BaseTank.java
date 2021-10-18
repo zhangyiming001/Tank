@@ -11,11 +11,13 @@ import java.util.Random;
  * ^
  * @Description:
  **/
-public class BaseTank extends GameObject{
+public class BaseTank extends GameObject {
     //坦克速度
     private static final int SPEED = 10;
     //坦克初始位置
     public int x, y;
+    //坦克相撞回到上一次位置
+    int oldX, oldY;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankU.getHeight();
     //实现矩形的类
@@ -24,7 +26,7 @@ public class BaseTank extends GameObject{
     private Random random = new Random();
     //坦克方向
     public Dir dir;
-//    //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
+    //    //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
 //    TankFrame tankFrame;
     //坦克移动
     private boolean moving = true;
@@ -35,7 +37,7 @@ public class BaseTank extends GameObject{
     //策略模式 -- 设计模式
 //    FireStrategy fireStrategy = new DefaultFireStrategy(); //默认策略模式
 //    FireStrategy fireStrategy = new FourDirFireStrategy(); //四个方向的的策略模式
-      FireStrategy fireStrategy; //动态创建
+    FireStrategy fireStrategy; //动态创建
     public GameModel gameModel;
 
     public BaseTank(int x, int y, Dir dir, Group group, GameModel gameModel) throws Exception {
@@ -56,7 +58,7 @@ public class BaseTank extends GameObject{
             String goodFireStrategy = (String) PropertyMgr.get("goodFireStrategy");
             fireStrategy = (FireStrategy) Class.forName(goodFireStrategy).getDeclaredConstructor().newInstance();
 
-        }else{
+        } else {
 //            fireStrategy = new DefaultFireStrategy();
             String badFireStrategy = (String) PropertyMgr.get("badFireStrategy");
             fireStrategy = (FireStrategy) Class.forName(badFireStrategy).getDeclaredConstructor().newInstance();
@@ -64,6 +66,7 @@ public class BaseTank extends GameObject{
         }
 
     }
+
     @Override
     public void paint(Graphics g) {
         if (!living) gameModel.remove(this);
@@ -86,7 +89,15 @@ public class BaseTank extends GameObject{
         move();
     }
 
+    public void back() {
+        x = oldX;
+        y = oldY;
+    }
+
     private void move() {
+        //记录移动之前的位置
+        oldX = x;
+        oldY = y;
         if (!moving) {
             return;
         }
@@ -118,8 +129,10 @@ public class BaseTank extends GameObject{
     private void boundsCheck() {
         if (this.x < 0) x = 0;
         if (this.y < 30) y = 30;
-        if (this.x > TankFrame.GAME_WIDTH - com.designpattern.tank.BaseTank.WIDTH) x = TankFrame.GAME_WIDTH - com.designpattern.tank.BaseTank.WIDTH;
-        if (this.y > TankFrame.GAME_HEIGHT - com.designpattern.tank.BaseTank.HEIGHT) y = TankFrame.GAME_HEIGHT - com.designpattern.tank.BaseTank.HEIGHT;
+        if (this.x > TankFrame.GAME_WIDTH - com.designpattern.tank.BaseTank.WIDTH)
+            x = TankFrame.GAME_WIDTH - com.designpattern.tank.BaseTank.WIDTH;
+        if (this.y > TankFrame.GAME_HEIGHT - com.designpattern.tank.BaseTank.HEIGHT)
+            y = TankFrame.GAME_HEIGHT - com.designpattern.tank.BaseTank.HEIGHT;
     }
 
     private void randomDir() {
@@ -135,13 +148,12 @@ public class BaseTank extends GameObject{
         this.living = false;
     }
 
-    public void Stop(){
-        this.moving = false;
-    }
+
     /***********************************Get/Set****************************************************/
     public Rectangle getRectangle() {
         return rectangle;
     }
+
     public Dir getDir() {
         return dir;
     }

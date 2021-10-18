@@ -17,8 +17,8 @@ public class TankTankCollider implements Collider {
             BaseTank baseTank1 = (BaseTank) o1;
             BaseTank baseTank2 = (BaseTank) o2;
             if (baseTank1.getRectangle().intersects(baseTank2.getRectangle())) {
-                baseTank1.Stop();
-//                baseTank2.Stop();
+                baseTank1.back();
+                baseTank2.back();
             }
         }
         return true;
