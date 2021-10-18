@@ -40,7 +40,7 @@ public class BaseTank extends GameObject {
     FireStrategy fireStrategy; //动态创建
     public GameModel gameModel;
 
-    public BaseTank(int x, int y, Dir dir, Group group, GameModel gameModel) throws Exception {
+    public BaseTank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -52,18 +52,22 @@ public class BaseTank extends GameObject {
         rectangle.y = this.y;
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
-
-        if (group == Group.GOOD) {
+        try {
+            if (group == Group.GOOD) {
 //            fireStrategy = new FourDirFireStrategy();
-            String goodFireStrategy = (String) PropertyMgr.get("goodFireStrategy");
-            fireStrategy = (FireStrategy) Class.forName(goodFireStrategy).getDeclaredConstructor().newInstance();
+                String goodFireStrategy = (String) PropertyMgr.get("goodFireStrategy");
+                fireStrategy = (FireStrategy) Class.forName(goodFireStrategy).getDeclaredConstructor().newInstance();
 
-        } else {
+            } else {
 //            fireStrategy = new DefaultFireStrategy();
-            String badFireStrategy = (String) PropertyMgr.get("badFireStrategy");
-            fireStrategy = (FireStrategy) Class.forName(badFireStrategy).getDeclaredConstructor().newInstance();
+                String badFireStrategy = (String) PropertyMgr.get("badFireStrategy");
+                fireStrategy = (FireStrategy) Class.forName(badFireStrategy).getDeclaredConstructor().newInstance();
 
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
 
     }
 
