@@ -24,14 +24,11 @@ public class BaseBullet extends GameObject{
     //是否存活--为碰撞检测做准备
     private boolean living = true;
 
-    GameModel gameModel;
-
-    public BaseBullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public BaseBullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         //每次初始化的时候都为 rectangle 赋一次值
         rectangle.x = this.x;
@@ -39,7 +36,7 @@ public class BaseBullet extends GameObject{
         rectangle.width = WIDTH;
         rectangle.height = HEIGHT;
 
-        gameModel.add(this);
+        GameModel.getINSTANCE().add(this);
     }
 
     public Group getGroup() {
@@ -48,7 +45,7 @@ public class BaseBullet extends GameObject{
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            gameModel.remove(this);
+            GameModel.getINSTANCE().remove(this);
         }
         switch (dir) {
             case LEFT:
