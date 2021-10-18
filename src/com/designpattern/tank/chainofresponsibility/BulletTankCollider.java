@@ -1,9 +1,6 @@
 package com.designpattern.tank.chainofresponsibility;
 
-import com.designpattern.tank.BaseBullet;
-import com.designpattern.tank.BaseExplode;
-import com.designpattern.tank.BaseTank;
-import com.designpattern.tank.GameObject;
+import com.designpattern.tank.*;
 
 /**
  * @Author: ZhangYiMing
@@ -22,7 +19,7 @@ public class BulletTankCollider implements Collider{
                 baseBullet.die();
                 int bulletX = baseTank.getX() + com.designpattern.tank.BaseTank.WIDTH/2 - BaseExplode.WIDTH/2;
                 int bulletY = baseTank.getY() + com.designpattern.tank.BaseTank.HEIGHT/2 - BaseExplode.HEIGHT/2;
-                baseTank.gameModel.add(new BaseExplode(bulletX,bulletY,baseTank.gameModel));
+                GameModel.getINSTANCE().add(new BaseExplode(bulletX,bulletY));
                 return false;
             }
         }else if (o1 instanceof BaseTank && o2 instanceof BaseBullet){

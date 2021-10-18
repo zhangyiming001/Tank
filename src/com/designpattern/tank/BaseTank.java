@@ -23,7 +23,7 @@ public class BaseTank extends GameObject {
     //实现矩形的类
     public Rectangle rectangle = new Rectangle();
     //生成随机数--坦克方向
-    private Random random = new Random();
+    private final Random random = new Random();
     //坦克方向
     public Dir dir;
     //    //目的是获取tankFrame 画笔 需要谁new的就把对象给我传进来
@@ -38,14 +38,12 @@ public class BaseTank extends GameObject {
 //    FireStrategy fireStrategy = new DefaultFireStrategy(); //默认策略模式
 //    FireStrategy fireStrategy = new FourDirFireStrategy(); //四个方向的的策略模式
     FireStrategy fireStrategy; //动态创建
-    public GameModel gameModel;
 
-    public BaseTank(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public BaseTank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         //每次初始化的时候都为 rectangle 赋一次值
         rectangle.x = this.x;
@@ -64,16 +62,17 @@ public class BaseTank extends GameObject {
                 fireStrategy = (FireStrategy) Class.forName(badFireStrategy).getDeclaredConstructor().newInstance();
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        GameModel.getINSTANCE().add(this);
 
 
     }
 
     @Override
     public void paint(Graphics g) {
-        if (!living) gameModel.remove(this);
+        if (!living) GameModel.getINSTANCE().remove(this);
         switch (dir) {
             case LEFT:
                 g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
@@ -106,18 +105,10 @@ public class BaseTank extends GameObject {
             return;
         }
         switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
+            case LEFT -> x -= SPEED;
+            case UP -> y -= SPEED;
+            case RIGHT -> x += SPEED;
+            case DOWN -> y += SPEED;
         }
         if (this.group == Group.BAD && random.nextInt(100) > 85) {
             this.fire();
@@ -158,16 +149,8 @@ public class BaseTank extends GameObject {
         return rectangle;
     }
 
-    public Dir getDir() {
-        return dir;
-    }
-
     public void setDir(Dir dir) {
         this.dir = dir;
-    }
-
-    public boolean isMoving() {
-        return moving;
     }
 
     public void setMoving(boolean moving) {
@@ -178,23 +161,13 @@ public class BaseTank extends GameObject {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public Group getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
 }

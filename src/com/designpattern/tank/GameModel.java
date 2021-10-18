@@ -13,7 +13,7 @@ import java.util.Objects;
  **/
 public class GameModel {
     private static final GameModel INSTANCE = new GameModel();
-    BaseTank myBaseTank = new BaseTank(200, 200, Dir.DOWN, Group.GOOD, this);
+    BaseTank myBaseTank;
 /**
  * 由于子弹坦克爆炸都继承了GameModel 所以当创建list的时候只需要 GameModel中添加即可
  * List<BaseBullet> baseBullets = new ArrayList();
@@ -36,6 +36,23 @@ public class GameModel {
 
         for (int i = 0; i < initTanleCount; i++) {
             this.add(new BaseTank(50+i*30,200,Dir.DOWN,Group.BAD,this));
+        }
+
+        add(new Wall(150,150,200,50));
+        add(new Wall(550,150,200,50));
+        add(new Wall(300,300,50,200));
+        add(new Wall(550,300,50,200));
+    }
+    static {
+        INSTANCE.init();
+    }
+    private void init(){
+        //        初始化主站坦克
+        myBaseTank = new BaseTank(200, 200, Dir.DOWN, Group.GOOD);
+        int initTanleCount = Integer.parseInt((String) Objects.requireNonNull(PropertyMgr.get("initTankCount")));
+
+        for (int i = 0; i < initTanleCount; i++) {
+            new BaseTank(50+i*30,200,Dir.DOWN,Group.BAD);
         }
 
         add(new Wall(150,150,200,50));
