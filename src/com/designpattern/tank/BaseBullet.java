@@ -96,9 +96,9 @@ public class BaseBullet extends GameObject{
         }
     }
 
-    public void collidwith(BaseTank baseTank) {
+    public boolean collidwith(BaseTank baseTank) {
 
-        if (this.getGroup() == baseTank.getGroup()) return;
+        if (this.getGroup() == baseTank.getGroup()) return false;
 
         //TODO 潜在的BUG 每次碰撞检测都要new两个对象 这就相当于2mn 的复杂度  通过new java自带的rectangle 来记录位置代替new对象
 //        Rectangle rect1 = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
@@ -110,7 +110,10 @@ public class BaseBullet extends GameObject{
             int bulletX = baseTank.getX() + com.designpattern.tank.BaseTank.WIDTH/2 - BaseExplode.WIDTH/2;
             int bulletY = baseTank.getY() + com.designpattern.tank.BaseTank.HEIGHT/2 - BaseExplode.HEIGHT/2;
             gameModel.add(new BaseExplode(bulletX,bulletY,gameModel));
+            return true;
         }
+
+        return false;
     }
 
     private void die() {

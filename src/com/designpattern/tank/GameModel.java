@@ -2,6 +2,7 @@ package com.designpattern.tank;
 
 import com.designpattern.tank.chainofresponsibility.BulletTankCollider;
 import com.designpattern.tank.chainofresponsibility.Collider;
+import com.designpattern.tank.chainofresponsibility.ColliderChain;
 import com.designpattern.tank.chainofresponsibility.TankTankCollider;
 
 import java.awt.*;
@@ -22,8 +23,11 @@ public class GameModel {
 //    List<BaseTank> baseTanks = new ArrayList<>();
 //    List<BaseExplode> baseExplodes = new ArrayList<>();
     List<GameObject> gameObjects =  new ArrayList();
-    Collider bulletTankCollider = new BulletTankCollider();
-    Collider tankTankCollider = new TankTankCollider();
+//    利用ColliderChain
+//    Collider bulletTankCollider = new BulletTankCollider();
+//    Collider tankTankCollider = new TankTankCollider();
+    ColliderChain chain = new ColliderChain();
+
     public GameModel() throws Exception {
         int initTanleCount = Integer.parseInt((String) Objects.requireNonNull(PropertyMgr.get("initTankCount")));
 
@@ -64,8 +68,9 @@ public class GameModel {
             for (int j = i+1; j < gameObjects.size(); j++) {
                 GameObject o1 = gameObjects.get(i);
                 GameObject o2 = gameObjects.get(j);
-                bulletTankCollider.collide(o1,o2);
-                tankTankCollider.collide(o1,o2);
+//                bulletTankCollider.collide(o1,o2);
+//                tankTankCollider.collide(o1,o2);
+                chain.collide(o1,o2);
             }
         }
 //        for (int i = 0; i < gameObjects.size(); i++) {

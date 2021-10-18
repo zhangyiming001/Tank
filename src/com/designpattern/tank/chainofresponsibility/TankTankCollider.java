@@ -10,18 +10,17 @@ import com.designpattern.tank.GameObject;
  * ^
  * @Description:
  **/
-public class TankTankCollider implements Collider{
+public class TankTankCollider implements Collider {
     @Override
-    public void collide(GameObject o1, GameObject o2) {
-        if (o1 instanceof BaseTank && o2 instanceof BaseTank){
+    public boolean collide(GameObject o1, GameObject o2) {
+        if (o1 instanceof BaseTank && o2 instanceof BaseTank) {
             BaseTank baseTank1 = (BaseTank) o1;
             BaseTank baseTank2 = (BaseTank) o2;
-            if (baseTank1.getRectangle().intersects(baseTank2.getRectangle())){
+            if (baseTank1.getRectangle().intersects(baseTank2.getRectangle())) {
                 baseTank1.Stop();
-                baseTank2.Stop();
+//                baseTank2.Stop();
             }
-        }else if (o1 instanceof BaseTank && o2 instanceof BaseBullet){
-            collide(o2,o1);
         }
+        return true;
     }
 }
