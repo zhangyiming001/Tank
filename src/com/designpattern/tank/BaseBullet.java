@@ -17,16 +17,14 @@ public class BaseBullet extends GameObject{
     //实现矩形的类
     public Rectangle rectangle = new Rectangle();
     private final Group group;
-    //子弹初始位置
-    private int x, y;
     //子弹方向
     private final Dir dir;
     //是否存活--为碰撞检测做准备
     private boolean living = true;
 
     public BaseBullet(int x, int y, Dir dir, Group group) {
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         this.dir = dir;
         this.group = group;
 
@@ -64,6 +62,16 @@ public class BaseBullet extends GameObject{
                 break;
         }
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void move() {

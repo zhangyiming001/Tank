@@ -2,6 +2,9 @@ package com.designpattern.tank.strategy;
 
 import com.designpattern.tank.BaseBullet;
 import com.designpattern.tank.BaseTank;
+import com.designpattern.tank.GameModel;
+import com.designpattern.tank.decorator.RectDecorator;
+import com.designpattern.tank.decorator.TailDecorator;
 
 /**
  * @Author: ZhangYiMing
@@ -15,7 +18,9 @@ public class DefaultFireStrategy implements FireStrategy {
         int bulletX = baseTank.x + com.designpattern.tank.BaseTank.WIDTH / 2 - BaseBullet.WIDTH / 2;
         int bulletY = baseTank.y + com.designpattern.tank.BaseTank.HEIGHT / 2 - BaseBullet.HEIGHT / 2;
 
-        new BaseBullet(bulletX, bulletY, baseTank.dir, baseTank.group);
+        BaseBullet baseBullet = new BaseBullet(bulletX, bulletY, baseTank.dir, baseTank.group);
+        GameModel.getINSTANCE().add(new RectDecorator(new TailDecorator(baseBullet)));
+
 
     }
 }

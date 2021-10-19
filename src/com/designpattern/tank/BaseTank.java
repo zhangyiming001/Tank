@@ -14,8 +14,6 @@ import java.util.Random;
 public class BaseTank extends GameObject {
     //坦克速度
     private static final int SPEED = 10;
-    //坦克初始位置
-    public int x, y;
     //坦克相撞回到上一次位置
     int oldX, oldY;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -40,8 +38,8 @@ public class BaseTank extends GameObject {
     FireStrategy fireStrategy; //动态创建
 
     public BaseTank(int x, int y, Dir dir, Group group) {
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         this.dir = dir;
         this.group = group;
 
@@ -90,6 +88,16 @@ public class BaseTank extends GameObject {
                 break;
         }
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public void back() {
