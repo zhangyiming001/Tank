@@ -8,14 +8,11 @@ import java.util.Random;
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/10/2 13:09
- * ^
- * @Description:
+ * @Description: 继承 GameObject 是为了实现调停者模式
  **/
 public class BaseTank extends GameObject {
     //坦克速度
     private static final int SPEED = 10;
-    //坦克初始位置
-    public int x, y;
     //坦克相撞回到上一次位置
     int oldX, oldY;
     public static final int WIDTH = ResourceMgr.goodTankU.getWidth();
@@ -40,8 +37,8 @@ public class BaseTank extends GameObject {
     FireStrategy fireStrategy; //动态创建
 
     public BaseTank(int x, int y, Dir dir, Group group) {
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         this.dir = dir;
         this.group = group;
 
@@ -74,22 +71,24 @@ public class BaseTank extends GameObject {
     public void paint(Graphics g) {
         if (!living) GameModel.getINSTANCE().remove(this);
         switch (dir) {
-            case LEFT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
-                break;
-            default:
-                break;
+            case LEFT -> g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
+            case UP -> g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
+            case RIGHT -> g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
+            case DOWN -> g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
+            default -> {
+            }
         }
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public void back() {

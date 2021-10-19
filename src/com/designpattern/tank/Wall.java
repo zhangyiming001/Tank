@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/10/18 13:15
- * @Description:画墙
+ * @Description: 画墙
  **/
 public class Wall extends GameObject{
     //设置墙的高宽
@@ -28,5 +28,15 @@ public class Wall extends GameObject{
         g.fillRect(x,y,w,h);
         g.setColor(color);
 
+    }
+
+    @Override
+    public int getWidth() {
+        return w;
+    }
+
+    @Override
+    public int getHeight() {
+        return h;
     }
 }

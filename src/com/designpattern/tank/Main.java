@@ -1,11 +1,8 @@
 package com.designpattern.tank;
 
-import java.util.Objects;
-
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/10/2 8:29
- * ^
  * @Description:
  **/
 public class Main {

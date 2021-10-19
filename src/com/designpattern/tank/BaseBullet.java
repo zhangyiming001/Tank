@@ -5,7 +5,6 @@ import java.awt.*;
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/10/2 15:13
- * ^
  * @Description:
  **/
 public class BaseBullet extends GameObject{
@@ -17,16 +16,14 @@ public class BaseBullet extends GameObject{
     //实现矩形的类
     public Rectangle rectangle = new Rectangle();
     private final Group group;
-    //子弹初始位置
-    private int x, y;
     //子弹方向
     private final Dir dir;
     //是否存活--为碰撞检测做准备
     private boolean living = true;
 
     public BaseBullet(int x, int y, Dir dir, Group group) {
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         this.dir = dir;
         this.group = group;
 
@@ -48,22 +45,24 @@ public class BaseBullet extends GameObject{
             GameModel.getINSTANCE().remove(this);
         }
         switch (dir) {
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
-                break;
-            default:
-                break;
+            case LEFT -> g.drawImage(ResourceMgr.bulletL, x, y, null);
+            case UP -> g.drawImage(ResourceMgr.bulletU, x, y, null);
+            case RIGHT -> g.drawImage(ResourceMgr.bulletR, x, y, null);
+            case DOWN -> g.drawImage(ResourceMgr.bulletD, x, y, null);
+            default -> {
+            }
         }
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     private void move() {

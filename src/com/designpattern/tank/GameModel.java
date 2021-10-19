@@ -9,12 +9,12 @@ import java.util.Objects;
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/10/15 17:25
- * @Description:门面模式（Facade）
+ * @Description: 门面模式（Facade）
  **/
 public class GameModel {
     private static final GameModel INSTANCE = new GameModel();
     BaseTank myBaseTank;
-/**
+/*
  * 由于子弹坦克爆炸都继承了GameModel 所以当创建list的时候只需要 GameModel中添加即可
  * List<BaseBullet> baseBullets = new ArrayList();
  * List<BaseTank> baseTanks = new ArrayList<>();
@@ -47,11 +47,11 @@ public class GameModel {
         INSTANCE.init();
     }
     private void init(){
-        //        初始化主站坦克
+        //初始化主站坦克
         myBaseTank = new BaseTank(200, 200, Dir.DOWN, Group.GOOD);
-        int initTanleCount = Integer.parseInt((String) Objects.requireNonNull(PropertyMgr.get("initTankCount")));
+        int initTankCount = Integer.parseInt((String) Objects.requireNonNull(PropertyMgr.get("initTankCount")));
 
-        for (int i = 0; i < initTanleCount; i++) {
+        for (int i = 0; i < initTankCount; i++) {
             new BaseTank(50+i*30,200,Dir.DOWN,Group.BAD);
         }
 
@@ -61,10 +61,10 @@ public class GameModel {
         add(new Wall(550,300,50,200));
     }
     public void add(GameObject gameObject){
-        this.gameObjects.add(gameObject);
+        gameObjects.add(gameObject);
     }
     public void remove(GameObject gameObject){
-        this.gameObjects.remove(gameObject);
+        gameObjects.remove(gameObject);
     }
     public void paint(Graphics g) {
         Color c = g.getColor();

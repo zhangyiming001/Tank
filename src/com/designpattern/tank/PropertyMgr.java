@@ -6,7 +6,6 @@ import java.util.Properties;
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/8/28 21:11
- * ^
  * @Description: 读取配置文件
  **/
 public class PropertyMgr {

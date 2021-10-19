@@ -5,22 +5,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/10/2 9:04
- * ^
  * @Description:
  **/
 public class TankFrame extends Frame {
 
     GameModel gm = GameModel.getINSTANCE();
 
-    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    static final int GAME_WIDTH = 1200, GAME_HEIGHT = 900;
 
-    public TankFrame() throws Exception {
+    public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("坦克大战");
@@ -37,7 +34,6 @@ public class TankFrame extends Frame {
     }
 
     /**
-     * 、
      * 解决屏幕闪烁：双缓存
      * 在内存中创建一张图片，并定义一只画笔（graphics）都画完后统一交给屏幕（显存）
      * 继承Frame 后 重写update 会截获paint 方法 需要在update内调用
@@ -76,23 +72,13 @@ public class TankFrame extends Frame {
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
-                case KeyEvent.VK_LEFT:
-                    keyLEFT = true;
-                    break;
-                case KeyEvent.VK_UP:
-                    keyUP = true;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    keyRIGHT = true;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    keyDOWN = true;
-                    break;
-                case KeyEvent.VK_SPACE:
-                    gm.getMainTank().fire();
-                    break;
-                default:
-                    break;
+                case KeyEvent.VK_LEFT -> keyLEFT = true;
+                case KeyEvent.VK_UP -> keyUP = true;
+                case KeyEvent.VK_RIGHT -> keyRIGHT = true;
+                case KeyEvent.VK_DOWN -> keyDOWN = true;
+                case KeyEvent.VK_SPACE -> gm.getMainTank().fire();
+                default -> {
+                }
             }
             setMainTankDir();
         }
@@ -101,20 +87,12 @@ public class TankFrame extends Frame {
         public void keyReleased(KeyEvent e) {
             int keyCode = e.getKeyCode();
             switch (keyCode) {
-                case KeyEvent.VK_LEFT:
-                    keyLEFT = false;
-                    break;
-                case KeyEvent.VK_UP:
-                    keyUP = false;
-                    break;
-                case KeyEvent.VK_RIGHT:
-                    keyRIGHT = false;
-                    break;
-                case KeyEvent.VK_DOWN:
-                    keyDOWN = false;
-                    break;
-                default:
-                    break;
+                case KeyEvent.VK_LEFT -> keyLEFT = false;
+                case KeyEvent.VK_UP -> keyUP = false;
+                case KeyEvent.VK_RIGHT -> keyRIGHT = false;
+                case KeyEvent.VK_DOWN -> keyDOWN = false;
+                default -> {
+                }
             }
             setMainTankDir();
         }

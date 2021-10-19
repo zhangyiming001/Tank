@@ -8,14 +8,13 @@ import java.util.Objects;
 /**
  * @Author: ZhangYiMing
  * @CreateDate: 2021/10/3 9:26
- * ^
  * @Description:
  **/
 public class ResourceMgr {
-    public static BufferedImage bulletL,bulletU,bulletR,bulletD;
+    public static BufferedImage bulletL, bulletU, bulletR, bulletD;
     public static BufferedImage[] explodes = new BufferedImage[16];
-    public static BufferedImage goodTankL,goodTankU,goodTankR,goodTankD;
-    public static BufferedImage badTankL,badTankU,badTankR,badTankD;
+    public static BufferedImage goodTankL, goodTankU, goodTankR, goodTankD;
+    public static BufferedImage badTankL, badTankU, badTankR, badTankD;
 
     static {
         try {
@@ -37,7 +36,7 @@ public class ResourceMgr {
             bulletR = ImageUtil.rotateImage(bulletU, 90);
             bulletD = ImageUtil.rotateImage(bulletU, 180);
             for (int i = 0; i < 16; i++) {
-                explodes[i] = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/e"+(i+1)+".gif")));
+                explodes[i] = ImageIO.read(Objects.requireNonNull(classLoader.getResourceAsStream("images/e" + (i + 1) + ".gif")));
             }
         } catch (IOException e) {
             e.printStackTrace();
