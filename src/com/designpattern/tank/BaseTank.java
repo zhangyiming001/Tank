@@ -1,8 +1,12 @@
 package com.designpattern.tank;
 
+import com.designpattern.tank.observer.TankFireEvent;
+import com.designpattern.tank.observer.TankFireHandler;
+import com.designpattern.tank.observer.TankFireObserver;
 import com.designpattern.tank.strategy.FireStrategy;
 
 import java.awt.*;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -80,7 +84,13 @@ public class BaseTank extends GameObject {
         }
         move();
     }
-
+    private final List<TankFireObserver> fireObservers = List.of(new TankFireHandler());
+    public void handleFireKey(){
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver o:fireObservers) {
+            o.actionOnFire(event);
+        }
+    }
     @Override
     public int getWidth() {
         return WIDTH;
