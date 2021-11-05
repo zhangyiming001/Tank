@@ -17,10 +17,10 @@ public class DefaultFireStrategy implements FireStrategy {
         int bulletX = baseTank.x + com.designpattern.tank.BaseTank.WIDTH / 2 - BaseBullet.WIDTH / 2;
         int bulletY = baseTank.y + com.designpattern.tank.BaseTank.HEIGHT / 2 - BaseBullet.HEIGHT / 2;
         //装饰模式
-        BaseBullet baseBullet = new BaseBullet(bulletX, bulletY, baseTank.dir, baseTank.group);
-        GameModel.getINSTANCE().add(new RectDecorator(new TailDecorator(baseBullet)));
+//        BaseBullet baseBullet = new BaseBullet(bulletX, bulletY, baseTank.dir, baseTank.group);
+//        GameModel.getINSTANCE().add(new RectDecorator(new TailDecorator(baseBullet)));
 
-//        new BaseBullet(bulletX, bulletY, baseTank.dir, baseTank.group);
+        new BaseBullet(bulletX, bulletY, baseTank.dir, baseTank.group);
 
 
     }

@@ -3,6 +3,7 @@ package com.designpattern.tank;
 import com.designpattern.tank.chainofresponsibility.ColliderChain;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -95,5 +96,48 @@ public class GameModel {
 
     public BaseTank getMainTank() {
         return myBaseTank;
+    }
+    public void save() {
+        File file = new File("D:\\JavaProject\\JavaBasicProject\\Tank\\data\\tank.data");
+        ObjectOutputStream outputStream = null;
+        try {
+            outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            outputStream.writeObject(myBaseTank);
+            outputStream.writeObject(gameObjects);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }finally {
+            if (outputStream!=null){
+                try {
+                    outputStream.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+    public void load() {
+        File file = new File("D:\\JavaProject\\JavaBasicProject\\Tank\\data\\tank.data");
+        ObjectInputStream inputStream = null;
+        try {
+            inputStream = new ObjectInputStream(new FileInputStream(file));
+            myBaseTank = (BaseTank) inputStream.readObject();
+            gameObjects = (ArrayList<GameObject>) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }finally {
+            if (inputStream!=null){
+                try {
+                    inputStream.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
     }
 }

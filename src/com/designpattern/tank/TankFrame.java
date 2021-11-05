@@ -77,7 +77,10 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_RIGHT -> keyRIGHT = true;
                 case KeyEvent.VK_DOWN -> keyDOWN = true;
                 case KeyEvent.VK_SPACE -> gm.getMainTank().handleFireKey();
+                case KeyEvent.VK_S -> gm.save();
+                case KeyEvent.VK_L -> gm.load();
                 default -> {
+                    return;
                 }
             }
             setMainTankDir();
@@ -92,6 +95,7 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_RIGHT -> keyRIGHT = false;
                 case KeyEvent.VK_DOWN -> keyDOWN = false;
                 default -> {
+                    return;
                 }
             }
 
